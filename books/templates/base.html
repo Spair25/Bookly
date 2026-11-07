@@ -1,0 +1,104 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Bookly{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container navbar">
+
+            <!-- Logo -->
+            <a href="{% url 'home' %}" class="brand">
+                <img
+                    src="{% static 'images/bookly-logo.png' %}"
+                    alt="Bookly"
+                >
+            </a>
+
+            <!-- Navigation -->
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'book_search' %}">Books</a>
+                <a href="#">Community</a>
+                <a href="#">My Library</a>
+            </nav>
+
+            <!-- Authentication -->
+            <div class="nav-actions">
+                <div class="header-auth">
+
+                    {% if user.is_authenticated %}
+
+                        <span class="header-username">
+                            {{ user.username }}
+                        </span>
+
+                        <a href="{% url 'profile' %}" class="header-profile">
+                            My Profile
+                        </a>
+
+                        <form
+                            method="post"
+                            action="{% url 'logout' %}"
+                            class="logout-form"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="header-logout"
+                            >
+                                Log Out
+                            </button>
+                        </form>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="header-login"
+                        >
+                            Log In
+                        </a>
+
+                        <a
+                            href="{% url 'register' %}"
+                            class="header-signup"
+                        >
+                            Sign Up
+                        </a>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>
+                © 2026 Bookly.
+                Discover books. Share stories. Connect readers.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

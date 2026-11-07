@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Bookly — Discover Books{% endblock %}
+
+{% block content %}
+
+<section class="bookly-hero">
+    <div class="bookly-hero-content">
+        <h1>
+            Discover books.<br>
+            Share stories.<br>
+            Connect readers.
+        </h1>
+
+        <p>Your cozy corner in the world of books.</p>
+
+        <a href="{% url 'book_search' %}" class="bookly-explore-btn">
+            Explore Books →
+        </a>
+    </div>
+</section>
+
+<section class="features" id="discover">
+    <div class="container">
+
+        <div class="section-heading">
+            <span class="eyebrow">MADE FOR BOOK LOVERS</span>
+            <h2>Everything you need in one place</h2>
+            <p>Your reading journey becomes even better with Bookly.</p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Explore Books</h3>
+                <p>Find interesting books and discover new authors.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Share Reviews</h3>
+                <p>Rate books and share your thoughts with readers.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Your Library</h3>
+                <p>Track what you've read and what you want to read next.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>Community</h3>
+                <p>Connect with people who love stories as much as you do.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="join-section">
+    <div class="container join-content">
+        <h2>Every great story starts somewhere.</h2>
+        <p>Join a community of readers and begin your next chapter.</p>
+        <a href="{% url 'register' %}" class="btn btn-light">
+            Get Started
+        </a>
+    </div>
+</section>
+
+{% endblock %}

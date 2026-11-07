@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Explore Books — Bookly{% endblock %}
+
+{% block content %}
+
+<section class="catalog-section">
+    <div class="container">
+
+        <div class="catalog-header">
+            <span class="eyebrow">EXPLORE YOUR NEXT STORY</span>
+            <h1>Discover Books</h1>
+            <p>Find your next favorite book from millions of stories.</p>
+        </div>
+
+        <form method="get" action="{% url 'book_search' %}" class="catalog-search-form">
+
+            <div class="catalog-search-row">
+        
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ query }}"
+                    placeholder="Search books or authors..."
+                    required
+                >
+        
+                <select name="language" aria-label="Book language">
+                    <option value="all" {% if selected_language == 'all' %}selected{% endif %}>
+                        All languages
+                    </option>
+        
+                    <option value="en" {% if selected_language == 'en' %}selected{% endif %}>
+                        🇬🇧 English
+                    </option>
+        
+                    <option value="uk" {% if selected_language == 'uk' %}selected{% endif %}>
+                        🇺🇦 Ukrainian
+                    </option>
+        
+                    <option value="ru" {% if selected_language == 'ru' %}selected{% endif %}>
+                        🇷🇺 Russian
+                    </option>
+                </select>
+        
+                <button type="submit">Search</button>
+        
+            </div>
+        
+        </form>
+
+        {% if query %}
+            <h2 class="search-results-title">
+                Search results for "{{ query }}"
+            </h2>
+
+            {% if books %}
+                <div class="books-grid">
+                    {% for book in books %}
+                    <a
+                    href="{% url 'book_detail' book.open_library_id|cut:'/works/' %}"
+                    class="book-card book-card-link"
+                >
+                            <div class="book-cover">
+                                {% if book.cover_url %}
+                                    <img src="{{ book.cover_url }}" alt="{{ book.title }}" loading="lazy">
+                                {% else %}
+                                    <div class="no-cover">📖</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="book-card-info">
+                                <h3>{{ book.title }}</h3>
+                                <p>{{ book.author }}</p>
+
+                                {% if book.year %}
+                                    <span class="book-year">{{ book.year }}</span>
+                                {% endif %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No books found. Try another search.</p>
+            {% endif %}
+        {% else %}
+            <p class="catalog-hint">
+                Enter a book title or author's name to start exploring.
+            </p>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}
